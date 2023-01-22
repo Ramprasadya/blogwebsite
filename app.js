@@ -23,7 +23,7 @@ var posts = [];
 app.get("/", (req, res) => {
   res.render("home", { homepage: homeStartingContent , posts : posts });
   console.log(posts)
-});
+}); 
 app.get("/about", (req, res) => {
   res.render("about", { about: aboutContent });
 });

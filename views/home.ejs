@@ -3,7 +3,14 @@
 <h1>Home with node and express configuration</h1>
 
 <p><%= homepage %></p>
+<!-- 
+ <% for(var i =0 ; i<posts.length ; i++){ %>
+   <% console.log(posts[i]) %>
+ <% } %> -->
 
- <% console.log(posts) %>
+ <% posts.map((item)=>{ %>
+    <h1><%= item.title %></h1> 
+    <p><%= item.desc %></p>
+ <% }) %>
 
 <%- include('./partials/footer.ejs') -%>
