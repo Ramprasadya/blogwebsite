@@ -49,25 +49,29 @@ app.post("/compose", (req, res) => {
     desc : req.body.desc
  })
 
- post.save()
+ post.save((err)=>{
+   if(!err){
+    res.redirect("/")
+   }
+ })
  posts.push(post)
-
- res.redirect("/")
-
 });
 
-app.get("/posts/:postname" ,(req,res)=>{
-  const requestedTitle = _.lowerCase(req.params.postname)
-  posts.map((post)=>{
-    const storedTitle = _.lowerCase(post.title)
+app.get("/posts/:postID" ,(req,res)=>{
+  const requestedID = req.params.postID
 
-    if(storedTitle === requestedTitle ){
-      res.render("post",{
-        title : post.title,
-        desc : post.desc
-      })
-    }
-  })
+  blogPost.findOne({_id: requestedID}, function(err, post){
+
+    res.render("post", {
+ 
+      title: post.title,
+ 
+      desc: post.desc
+ 
+    });
+ 
+  });
+
 })
 
 app.listen(3000, function () {
