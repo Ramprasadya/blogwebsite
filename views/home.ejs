@@ -10,6 +10,7 @@
     <p><%= item.desc.substring(0,100) + " ...." %>
       <a href="/posts/<%=item._id%>">Read more</a>
     </p>
+    <a href="/delete/<%=item._id %>" >Delete</a>
  <% }) %>
 
 <%- include('./partials/footer.ejs') -%>

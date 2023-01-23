@@ -74,6 +74,16 @@ app.get("/posts/:postID" ,(req,res)=>{
 
 })
 
+app.get("/delete/:id" , (req,res)=>{
+   const deletePost = req.params.id
+   blogPost.findByIdAndDelete({_id : deletePost},(err,post)=>{
+    res.render("delete",{
+      title : "",
+      desc : ""
+    })
+   })
+})
+
 app.listen(3000, function () {
   console.log(`Server started on port http://localhost:${3000}`);
 });
