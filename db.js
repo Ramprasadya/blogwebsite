@@ -1,9 +1,11 @@
+
 const mongoose = require('mongoose')
 mongoose.set('strictQuery' , false)
+require('dotenv').config()
 
+console.log(process.env)
 
-
-mongoose.connect("mongodb+srv://ramyadav:yadavram@cluster0.cwmuo.mongodb.net/Blog?retryWrites=true&w=majority&appName=Cluster0").then(()=>{
+mongoose.connect(process.env.Mongo_Uri).then(()=>{
   console.log("connection with mongoose completed ")
 })
 

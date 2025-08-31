@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev" : "npx nodemon app.js",
+    "dev": "npx nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "dotenv": "^17.2.1",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
     "lodash": "^4.17.21",
