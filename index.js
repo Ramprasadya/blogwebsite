@@ -3,11 +3,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
-const _ = require('lodash')
-const blogPost = require('./db')
-const path = require("path")
-
-
+const _ = require("lodash");
+const blogPost = require("./db");
+const path = require("path");
 
 const homeStartingContent =
   "Lacus vel facilisis volutpat est velit egestas dui id ornare. Semper auctor neque vitae tempus quam. Sit amet cursus sit amet dictum sit amet justo. Viverra tellus in hac habitasse. Imperdiet proin fermentum leo vel orci porta. Donec ultrices tincidunt arcu non sodales neque sodales ut. Mattis molestie a iaculis at erat pellentesque adipiscing. Magnis dis parturient montes nascetur ridiculus mus mauris vitae ultricies. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Ultrices vitae auctor eu augue ut lectus arcu bibendum at. Odio euismod lacinia at quis risus sed vulputate odio ut. Cursus mattis molestie a iaculis at erat pellentesque adipiscing.";
@@ -20,18 +18,16 @@ const app = express();
 
 app.set("view engine", "ejs");
 
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(express.static(path.join(__dirname, "views")));
 var posts = [];
 
-
 app.get("/", (req, res) => {
-  blogPost.find({}, function(err, posts){
-    res.render("home", { homepage: homeStartingContent , posts : posts });
-  })
-}); 
+  blogPost.find({}, function (err, posts) {
+    res.render("home", { homepage: homeStartingContent, posts: posts });
+  });
+});
 app.get("/about", (req, res) => {
   res.render("about", { about: aboutContent });
 });
@@ -43,49 +39,43 @@ app.get("/compose", (req, res) => {
 });
 
 app.post("/compose", (req, res) => {
- 
- const post =new blogPost({
-    title : req.body.title,
-    desc : req.body.desc
- })
-
- post.save((err)=>{
-   if(!err){
-    res.redirect("/")
-   }
- })
- posts.push(post)
-});
-
-app.get("/posts/:postID" ,(req,res)=>{
-  const requestedID = req.params.postID
-
-  blogPost.findOne({_id: requestedID}, function(err, post){
-
-    res.render("post", {
- 
-      title: post.title,
- 
-      desc: post.desc
- 
-    });
- 
+  const post = new blogPost({
+    title: req.body.title,
+    desc: req.body.desc,
   });
 
-})
+  post.save((err) => {
+    if (!err) {
+      res.redirect("/");
+    }
+  });
+  posts.push(post);
+});
 
-app.get("/delete/:id" , (req,res)=>{
-   const deletePost = req.params.id
-   blogPost.findByIdAndDelete({_id : deletePost},(err,post)=>{
-    res.render("delete",{
-      title : "",
-      desc : ""
-    })
-   })
-})
+app.get("/posts/:postID", (req, res) => {
+  const requestedID = req.params.postID;
 
-// app.listen(3000, function () {
-//   console.log(`Server started on port http://localhost:${3000}`);
-// });
+  blogPost.findOne({ _id: requestedID }, function (err, post) {
+    res.render("post", {
+      title: post.title,
 
-module.exports = app;
+      desc: post.desc,
+    });
+  });
+});
+
+app.get("/delete/:id", (req, res) => {
+  const deletePost = req.params.id;
+  blogPost.findByIdAndDelete({ _id: deletePost }, (err, post) => {
+    res.render("delete", {
+      title: "",
+      desc: "",
+    });
+  });
+});
+
+app.listen(3000, function () {
+  console.log(`Server started on port http://localhost:${3000}`);
+});
+
+// module.exports = app;
